@@ -1,0 +1,11 @@
+= render @team
+
+.row.mt-3
+  .col-md-12
+    = link_to "Edit this team", edit_team_path(@team), class: "btn btn-primary"
+    |
+    = link_to "Back to teams", teams_path, class: "btn btn-secondary"
+    |
+    = link_to "Add Player", new_team_player_path(@team), class: "btn btn-success"
+    |
+    = button_to "Destroy this team", @team, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger"

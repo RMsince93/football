@@ -1,0 +1,45 @@
+@import "bootstrap";
+
+  .common-fontsize {
+    font-size: 2.2rem; 
+  }
+
+  body {
+    font-family: 'Source Sans Pro', sans-serif;
+    background-color: #0D2601; 
+    color: #154001;
+  }
+
+  .button-group {
+    display: flex;
+    justify-content: center;
+  }
+
+  .player-name{
+    @extend .common-fontsize;
+  }
+
+  .player-number {
+    @extend .common-fontsize;
+  }
+
+  .team-name {
+    @extend .common-fontsize;
+  }
+
+  .market-value {
+    @extend .common-fontsize;
+  }
+
+  .img-fluid {
+    border-radius: 25px;
+  }
+  
+  .card {
+    background-color: #f2f2f2;
+  }
+
+  .table {
+    background-color: #154001;
+    color: #f2f2f2;
+  }

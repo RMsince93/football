@@ -1,0 +1,63 @@
+.container.mt-5
+  .row
+    .col-md-6
+      .card.bg-secondary.border-light.mb-3
+        .card-body
+          - if team.avatar.present?
+            = image_tag team.avatar.url
+          h5.card-title 
+          p.card-text = team.name
+        .card-body
+          h5.card-title Stadium:
+          p.card-text = team.stadium
+        .card-body
+          h5.card-title Trophies:
+          p.card-text = team.trophies
+
+      .card.bg-secondary.border-light.mb-3
+        .card-body
+          h5.card-title Total Market Value:
+          p.card-text = number_to_currency(@players.sum(:market_value), unit: '€', precision: 0, format: "%n %u")
+    
+    .col-md-6
+      .card.bg-secondary.border-light.mb-3
+        .card-body
+          h5.card-title Stadium capacity:
+          p.card-text = team.stadium_capacity
+        .card-body
+          h5.card-title Country:
+          p.card-text = team.country.name
+        .card-body
+          h5.card-title Age Average:
+          p.card-text = (@players.average(:age) || 0).round(0)
+        .card-body
+          h5.card-title Total Players:
+          p.card-text = @players.count
+
+  .row.mt-3
+    .col-md-12
+      h3 Squad:
+
+  .row
+    .col-md-12
+      table.table#players.table-striped.table-dark
+        thead
+          tr
+            th Image
+            th Name
+            th Age
+            th Country
+            th Market Value
+            th Position
+        tbody 
+          - @players.each do |player|
+            tr
+              td= link_to image_tag(player.avatar.url(:small), class: "img-thumbnail"), player_path(player) if player.avatar.present?
+              td= link_to player.name, player
+              td= player.age
+              td= player.country.name
+              td= number_to_currency(player.market_value, unit: '€', precision: 0, format: "%n %u")
+              td= player.position.name
+
+
+

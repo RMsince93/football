@@ -1,0 +1,10 @@
+p style="color: green" = notice
+
+== render @continent
+
+div
+  => link_to "Edit this continent", edit_continent_path(@continent)
+  '|
+  =< link_to "Back to continents", continents_path
+
+  = button_to "Destroy this continent", @continent, method: :delete

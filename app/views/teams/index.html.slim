@@ -1,0 +1,35 @@
+.container.mt-5
+  h1 Teams
+
+  = search_form_for @q, url: teams_path, method: :get, local: true, class: "form-inline mb-3" do |form|
+    .form-group
+      = form.text_field :name_cont, class: "form-control", placeholder: "Search by Name"
+    .form-group
+      = form.text_field :stadium_cont, class: "form-control", placeholder: "Search by Stadium"
+    .form-group
+      = form.text_field :country_name_cont, class: "form-control", placeholder: "Search by Country"
+    .mt-3
+      = form.submit "Search", class: "btn btn-primary"
+      = link_to "Back", root_path, class: "btn btn-primary"
+
+  table.table.table-striped.table-dark#players
+    thead
+      tr
+        th 
+        th= sort_link(@q, :name, "Name")
+        th= sort_link(@q, :stadium, "Stadium")
+        th= sort_link(@q, :stadium_capacity, "Stadium Capacity")
+        th= sort_link(@q, :country_name, "Country")
+
+    tbody
+      - @teams.each do |team|
+        tr
+          td= image_tag team.avatar.url(:small), class: "img-thumbnail" if team.avatar.present?
+          td= link_to team.name, team
+          td= team.stadium
+          td= team.stadium_capacity
+          td= team.country.name
+
+  = link_to "Create team", new_team_path, class: "btn btn-primary mt-3"
+  = link_to "Go to Championships", championships_path, class: "btn btn-primary mt-3"
+  = link_to "See all Players", players_path, class: "btn btn-primary mt-3"

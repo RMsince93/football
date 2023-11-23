@@ -1,0 +1,68 @@
+.container.mt-5
+  .card
+    .card-body
+      .row
+        .col-md-3.text-center
+          .player-info
+            .row
+              .col
+                .player-number.text-center
+                  = "##{player.shirt_number}"
+              .col
+                .player-name.text-center
+                  = player.name
+          .player-avatar
+            = image_tag player.avatar.url, class: "img-fluid" if player.avatar.present?
+        
+        .col-md-6.align-items-center
+          .row
+            .col-md-4.d-flex.flex-column.align-items-center
+              .player-details
+                p
+                  strong Age:
+                  = player.age
+                p
+                  strong Goals:
+                  = player.goals
+                p
+                  strong Assists:
+                  = player.assists
+            
+            .col-md-4.d-flex.flex-column.align-items-center
+              .player-details
+                p
+                  strong Country:
+                  = player.country.name
+                p
+                  strong Height:
+                  = player.height
+                p
+                  strong Weight:
+                  = player.weight
+            
+            .col-md-4.d-flex.flex-column.align-items-center
+              .player-details
+                p
+                  strong Yellow Cards:
+                  = player.yellow_cards
+                p
+                  strong Red Cards:
+                  = player.red_cards
+
+        .col-md-3.d-flex.flex-column.align-items-center
+          .team-info.text-center
+            .team-name
+              = player.team.name
+            .team-avatar
+              = image_tag player.team.avatar.url, class: "img-fluid" if player.team.avatar.present?
+          
+          .market-value.mt-auto.ml-auto
+            .bg-primary
+              = format_market_value(player.market_value)
+
+.mt-3
+  .col-md-12
+    .button-group
+      = link_to "Back", players_path, class: "btn btn-primary"
+      = link_to "Edit", edit_player_path(@player), class: "btn btn-primary mx-3"
+      = button_to "Destroy", @player, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger"

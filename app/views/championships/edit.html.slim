@@ -1,0 +1,11 @@
+h1 Editing championship
+
+= render "form", championship: @championship
+
+br
+
+.row
+  .col
+    = link_to "Show this championship", @championship, class: "btn btn-secondary"
+    |
+    = link_to "Back to championships", championships_path, class: "btn btn-primary"

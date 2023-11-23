@@ -1,0 +1,11 @@
+p style="color: green" = notice
+
+h1 Positions
+
+#positions
+  - @positions.each do |position|
+    == render position
+    p
+      = link_to "Show this position", position
+
+= link_to "New position", new_position_path

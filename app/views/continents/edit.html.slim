@@ -1,0 +1,10 @@
+h1 Editing continent
+
+== render "form", continent: @continent
+
+br
+
+div
+  => link_to "Show this continent", @continent
+  '|
+  =< link_to "Back to continents", continents_path

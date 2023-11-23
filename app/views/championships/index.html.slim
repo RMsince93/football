@@ -1,0 +1,15 @@
+.container.mt-5
+  h1 Championships
+
+  = form_with(url: championships_path, method: "get", class: "form-inline mb-3") do |form|
+    .form-group
+      = form.text_field :search, class: "form-control", placeholder: "Search by name or country"
+    = form.submit "Search", class: "btn btn-primary"
+
+  ul#championships
+    - @championships.each do |championship|
+      li
+        = link_to championship.name, championship
+
+  = link_to "Create Championship", new_championship_path, class: "btn btn-primary"
+  = link_to "Back to Home", root_path, class: "btn btn-primary"

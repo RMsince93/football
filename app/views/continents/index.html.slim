@@ -1,0 +1,11 @@
+p style="color: green" = notice
+
+h1 Continents
+
+#continents
+  - @continents.each do |continent|
+    == render continent
+    p
+      = link_to "Show this continent", continent
+
+= link_to "New continent", new_continent_path

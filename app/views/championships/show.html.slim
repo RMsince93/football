@@ -1,0 +1,8 @@
+= render @championship
+
+  = link_to "Edit this championship", edit_championship_path(@championship)
+  |
+  = link_to "Back to championships", championships_path
+  |
+  = button_to "Destroy this championship", @championship, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger"
+  

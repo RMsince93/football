@@ -1,0 +1,75 @@
+= form_with(model: [@team, @player], data: { controller: "keeper" }) do |form|
+  - if player.errors.any?
+    .row.mb-2
+      .col-12
+        div.alert.alert-danger
+          h2
+            = "#{pluralize(player.errors.count, 'error')} prohibited this player from being saved:"
+          ul
+            - player.errors.each do |error|
+              li
+                = error.full_message
+
+ 
+  .row.g-3.mb-2
+    .col-md-6
+      = form.label :avatar, 'Player Avatar', class: "form-label"
+      = form.file_field :avatar, class: "form-control"
+
+    .col-md-6
+      = form.label :name, class: "form-label"
+      = form.text_field :name, class: "form-control"
+
+    .col-md-6
+      = form.label :age, class: "form-label"
+      = form.select :age, 14..50, { include_blank: "Select Age" }, class: "form-control"
+
+    .col-md-6
+      = form.label :country_id, "Country", class: "form-label"
+      = form.collection_select :country_id, Country.all, :id, :name, { include_blank: "Select Country" }, class: "form-control"
+
+    .col-md-6
+      = form.label :shirt_number, class: "form-label"
+      = form.select :shirt_number, 1..99, { include_blank: "Select Shirt Number" }, class: "form-control"
+
+    .col-md-6
+      = form.label :market_value, class: "form-label"
+      = form.number_field :market_value, class: "form-control"
+
+    .col-md-6
+      = form.label "Position", class: "form-label"
+      = form.collection_select :position_id, Position.all, :id, :name, { include_blank: "Select Position" }, class: "form-control", data: { target: "keeper.positionSelect" }
+
+    .col-md-6
+      = form.label :height, class: "form-label"
+      = form.select :height, height_measures, { include_blank: "Select Height" }, class: "form-control"
+
+    .col-md-6
+      = form.label :weight, class: "form-label"
+      = form.select :weight, weight_measures, { include_blank: "Select Weight" }, class: "form-control"
+
+    .col-md-6
+      = form.label :preferred_foot, "Preferred Foot", class: "form-label"
+      = form.select :preferred_foot, ["Right", "Left", "Ambidextrous"], { include_blank: "Select Preferred Foot" }, class: "form-control"
+
+    .col-md-6
+      = form.label :goals, class: "form-label"
+      = form.number_field :goals, class: "form-control"
+
+    .col-md-6
+      = form.label :assists, class: "form-label"
+      = form.number_field :assists, class: "form-control"
+
+    .col-md-6
+      = form.label :yellow_cards, class: "form-label"
+      = form.number_field :yellow_cards, class: "form-control"
+
+    .col-md-6
+      = form.label :red_cards, class: "form-label"
+      = form.number_field :red_cards, class: "form-control"
+
+  = turbo_frame_tag "keeper_fields_frame" do
+    = render "keeper_fields", form: form if form.object.position_id == 1
+
+  .col-md-6
+    = form.submit "Submit", class: "btn btn-primary py-3 px-4"

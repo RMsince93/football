@@ -1,0 +1,39 @@
+.container.mt-5
+  h1 Players
+
+  = search_form_for @q, url: players_path, method: :get, local: true, class: "form-inline mb-3" do |form|
+    .form-group.mt-2
+      = form.text_field :name_cont, class: "form-control", placeholder: "Search by Name"
+    .form-group.mt-2
+      = form.text_field :age_eq, class: "form-control", placeholder: "Search by Age"
+    .form-group.mt-2
+      = form.text_field :country_name_cont, class: "form-control", placeholder: "Search by Country"
+    .form-group.mt-2
+      = form.text_field :market_value_eq, class: "form-control", placeholder: "Search by Market Value"
+    .mt-3
+      = form.submit "Search", class: "btn btn-primary"
+
+  table.table#players
+    thead
+      tr
+        th 
+        th= sort_link(@q, :name, "Name")
+        th= sort_link(@q, :age, "Age")
+        th= sort_link(@q, :country_name, "Country")
+        th= sort_link(@q, :market_value, "Market Value")
+        th= sort_link(@q, :position_name, "Position")
+        
+        
+    tbody 
+      - @players.each do |player|
+        tr
+          td= image_tag player.avatar.url(:small), class: "img-thumbnail" if player.avatar.present?
+          td= link_to player.name, player
+          td= player.age
+          td= player.country.name
+          td= number_to_currency(player.market_value, unit: '€', precision: 0, format: "%n %u")
+          td= player.position.name
+
+  .mt-3
+    = link_to "Go Home", root_path, class: "btn btn-primary"
+    = link_to "Go Back", players_path, class: "btn btn-primary"

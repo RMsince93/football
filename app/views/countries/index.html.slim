@@ -1,0 +1,11 @@
+p style="color: green" = notice
+
+h1 Countries
+
+#countries
+  - @countries.each do |country|
+    == render country
+    p
+      = link_to "Show this country", country
+
+= link_to "New country", new_country_path

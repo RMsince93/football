@@ -1,0 +1,9 @@
+pt:
+  number:
+    currency:
+      format:
+        delimiter: ! ','
+        format: ! '%u%n'
+        precision: 2
+        separator: !
+        unit: €

@@ -1,0 +1,19 @@
+.container.mt-5
+  div#championship-details
+    .row
+      .col-md-6
+        p
+          strong Name:
+          = championship.name
+        p
+          strong Country:
+          = championship.country.name
+      
+   
+    .mt-3
+      .col-md-12
+        = link_to "Back to championships", championships_path, class: "btn btn-primary"
+        |
+        = link_to "Edit this championship", edit_championship_path(championship), class: "btn btn-primary"
+        |
+        = button_to "Destroy this championship", championship, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger"
