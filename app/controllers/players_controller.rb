@@ -72,15 +72,4 @@ class PlayersController < ApplicationController
   def player_params
     params.require(:player).permit(:name, :age, :country_id, :shirt_number, :market_value, :position_id, :height, :weight, :preferred_foot, :goals, :assists, :yellow_cards, :red_cards, :goals_suffered, :clean_sheets, :avatar, :called_to_national_team)
   end
-
- # def associate_to_national_team
-  #  national_team = NationalTeam.find_by(country_id: @player.country_id)
-  #
-   # if national_team.present?
-    #  @player.update(national_team: national_team)
-    #else
-    #  flash[:alert] = "National Team not found for the selected country."
-    #end
-  #end
-
 end

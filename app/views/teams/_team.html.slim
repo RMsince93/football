@@ -1,6 +1,6 @@
 .container.mt-5
   .row
-    .col-md-6
+    .col
       .card.mb-3
         .card-body
           - if team.avatar.present?
@@ -19,7 +19,7 @@
           h5.card-title Total Market Value:
           p.card-text = number_to_currency(@players.sum(:market_value), unit: '€', precision: 0, format: "%n %u")
     
-    .col-md-6
+    .col
       .card.mb-3
         .card-body
           h5.card-title Stadium capacity:
@@ -39,14 +39,15 @@
             = link_to team.coach.name, team.coach, class: "btn btn-link"
         .card-body
           h5.card-title Actual Season: 
-          = collection_select(nil, :season_id, Season.all, :id, :name, { selected: 10 }, class: "form-control")
+          = collection_select(:team, :season_id, Season.all, :id, :name)
+          p.card-text = @selected_season
 
   .row.mt-3
-    .col-md-12
+    .col
       h3 Squad:
 
   .row
-    .col-md-12
+    .col
       table.table.table-striped#players
         thead
           tr
@@ -57,12 +58,16 @@
             th Market Value
             th Position
         tbody 
-          - PlayerSeasonTeam.where(season_id: @selected_season, team_id: team.id).each do |pst|
-            tr
-              td= link_to image_tag(pst.player.avatar.url(:small), class: "img-thumbnail"), player_path(pst.player) if pst.player.avatar.present?
-              td= link_to pst.player.name, player_path(pst.player)
-              td= pst.player.age
-              td
-                = image_tag pst.player.country.avatar.url(:small), class: "country-flag"
-              td= number_to_currency(pst.player.market_value, unit: '€', precision: 0, format: "%n %u")
-              td= pst.player.position.name
+          - @players.each do |player|
+            - player_season_team = player.player_season_teams.find_by(season_id: @selected_season, team_id: @team.id)
+            - if player_season_team
+              - logger.info "Player ID: #{player.id}, Season ID: #{@selected_season}, Team ID: #{@team.id}"
+              tr
+                td= link_to image_tag(player.avatar.url(:small), class: "img-thumbnail"), player_path(player) if player.avatar.present?
+                td= link_to player.name, player_path(player)
+                td= player.age
+                td
+                  = image_tag player.country.avatar.url(:small), class: "country-flag" if player.country.avatar.present?
+                td= number_to_currency(player.market_value, unit: '€', precision: 0, format: "%n %u")
+                td= player.position.name
+

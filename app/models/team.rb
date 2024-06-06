@@ -1,8 +1,6 @@
 class Team < ApplicationRecord
   mount_uploader :avatar, AvatarUploader
 	
-
-
   has_many :seasons, through: :player_season_teams
   has_many :player_season_teams
   has_and_belongs_to_many :championships
