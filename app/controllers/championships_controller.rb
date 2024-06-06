@@ -3,11 +3,8 @@ class ChampionshipsController < ApplicationController
 
   # GET /championships or /championships.json
   def index
-    if params[:search].present?
-      @championships = Championship.champ_search(params[:search])
-    else
-      @championships = Championship.all
-    end
+    @q = Championship.ransack(params[:q])
+    @championships = @q.result(distinct: true)
   end
 
   # GET /championships/1 or /championships/1.json
@@ -21,6 +18,8 @@ class ChampionshipsController < ApplicationController
 
   # GET /championships/1/edit
   def edit
+    @championship = Championship.find(params[:id])
+    @teams = Team.where(country_id: @championship.country_id)
   end
 
   # POST /championships or /championships.json
@@ -61,6 +60,12 @@ class ChampionshipsController < ApplicationController
     end
   end
 
+  def championship_fields
+    @championship = Championship.new(championship_params[:championship])
+    @teams = Team.where(country_id: championship_fields_params[:country_id])
+    render
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_championship
@@ -71,4 +76,9 @@ class ChampionshipsController < ApplicationController
     def championship_params
       params.require(:championship).permit(:name, :country_id, :continent_id, :team_id)
     end
+
+    def championship_fields_params
+      params.permit(:country_id) # strong params para a turbo_frame
+    end
+
 end

@@ -3,7 +3,7 @@ const toggleFields = () => {
   const keeperFieldsFrame = document.querySelector("#keeper_fields_frame");
 
   const selectedPositionId = positionSelect.value;
-  const teamId = document.querySelector('[data-controller="keeper"]').dataset.teamId;;
+  const teamId = document.querySelector('[data-controller="keeper"]').dataset.teamId;
 
   
   Turbo.visit(`/players/keeper_fields?position_id=${selectedPositionId}`, {frame: "keeper_fields_frame"} );

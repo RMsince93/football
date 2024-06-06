@@ -1,0 +1,43 @@
+.container.mt-5
+  .row.mt-3
+    .col-md-6
+      strong 
+      = image_tag national_team.avatar.url if national_team.avatar.present?
+    
+    .col-md-6
+      strong Age Average:
+      = (@national_team.players.average(:age) || 0).round(0)
+      
+
+    .col-md-6
+      strong Total Players:
+      = @national_team.players.count
+
+    .col-md-6
+      strong National Team Market Value:
+      = number_to_currency(@national_team.players.sum(:market_value), unit: '€', precision: 0, format: "%n %u")
+      
+
+  .row.mt-3
+      .col-md-12
+        h3 Squad:
+
+  .row
+    .col-md-12
+      table.table.table-striped#national_team_players
+        thead
+          tr
+            th Image
+            th Name
+            th Age
+            th Market Value
+            th Position
+
+        tbody
+          - @players.each do |player| 
+            tr
+              td= link_to image_tag(player.avatar.url(:small), class: "img-thumbnail"), player_path(player) if player.avatar.present?
+              td= link_to player.name, player
+              td= player.age
+              td= number_to_currency(player.market_value, unit: '€', precision: 0, format: "%n %u")
+              td= player.position.name

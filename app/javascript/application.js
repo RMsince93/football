@@ -2,3 +2,6 @@
 import "@hotwired/turbo-rails"
 import "controllers"
 import "custom/keeper"
+import "custom/team_select"
+
+

@@ -1,5 +1,5 @@
-h1 Teste
-
 = form_with(model: [@team, @player], data: { controller: "keeper" }) do |form|
-    = turbo_frame_tag "keeper_fields_frame" do
-        = render partial: "keeper_fields", locals: {form: form}
+  = turbo_frame_tag "keeper_fields_frame" do
+    - if @player.position_id == 1
+      = render partial: "keeper_fields", locals: {form: form}
+

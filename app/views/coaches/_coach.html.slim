@@ -1,0 +1,40 @@
+.container.mt-5
+  .card
+    .card-body
+      .row
+        .col-md-3
+          .coach-info.text-center.text-nowrap
+            .coach-name
+              = coach.name
+              
+          .coach-avatar
+            = image_tag coach.avatar.url, class: "img-coaches mx-auto my-2" 
+        
+        .col-md-6.d-flex.flex-column.align-items-center.my-auto
+          .row
+            .col-md-4
+              .coach-details
+                p
+                  strong Age:
+                  = coach.age
+          
+            .col-md-4
+              .coach-details
+                p
+                  strong Country:
+                  = coach.country.name
+
+        .col-md-3.d-flex.flex-column.align-items-center
+          .card
+            .team-info.card-body.text-center
+              .team-name
+                = coach.team.name
+              .team-avatar
+                = image_tag coach.team.avatar.url, class: "img-teams" 
+
+.mt-3
+  .col-md-12
+    .button-group
+      = link_to "Back", coaches_path, class: "btn btn-primary"
+      = link_to "Edit", edit_coach_path(coach), class: "btn btn-primary mx-3"
+      = button_to "Destroy", coach, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger"

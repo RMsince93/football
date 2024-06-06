@@ -9,7 +9,20 @@ class TeamsController < ApplicationController
 
   # GET /teams/1 or /teams/1.json
   def show
-    @players = @team.players.order(position_id: :asc, name: :asc)
+    @team = Team.find(params[:id])
+    @selected_season = Season.last.id
+    puts "@selected_season: #{@selected_season.inspect}"
+    @players = @team.players.joins(:player_season_teams).where(player_season_teams: { season_id: @selected_season }).order(position_id: :asc, name: :asc)
+    render action: :show
+  end
+
+  def season
+    @team = Team.find(params[:id])
+    @selected_season = Season.find_by(id: params[:season_id])&.id
+    @players = @team.players.joins(:player_season_teams).where(player_season_teams: { season_id: @selected_season }).order(position_id: :asc, name: :asc)
+    puts "@selected_season: #{@selected_season.inspect}"
+    puts "Selected Season ID: #{params[:season_id]}"
+    render action: :show
   end
 
   # GET /teams/new

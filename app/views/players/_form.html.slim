@@ -68,8 +68,12 @@
       = form.label :red_cards, class: "form-label"
       = form.number_field :red_cards, class: "form-control"
 
+    .col-md-6
+      = form.label 'Associate to National Team', class: "form-label"
+      = form.select :called_to_national_team, national_team_options, { include_blank: "Summon to Nation Team" }, class: "form-control"
+
   = turbo_frame_tag "keeper_fields_frame" do
-    = render "keeper_fields", form: form if form.object.position_id == 1
+    = render partial: "keeper_fields", locals: {form: form} if form.object.position_id == 1
 
   .col-md-6
     = form.submit "Submit", class: "btn btn-primary py-3 px-4"

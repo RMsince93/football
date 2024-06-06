@@ -1,0 +1,35 @@
+.container.mt-5
+  h1 Coaches
+
+  = search_form_for @q, url: coaches_path, method: :get, local: true, class: "form-inline mb-3" do |form|
+    .form-group.mt-2
+      = form.text_field :name_cont, class: "form-control", placeholder: "Search by Name"
+    .form-group.mt-2
+      = form.text_field :age_eq, class: "form-control", placeholder: "Search by Age"
+    .form-group.mt-2
+      = form.text_field :country_name_cont, class: "form-control", placeholder: "Search by Country"
+    .mt-3
+      = form.submit "Search", class: "btn btn-primary"
+
+  table.table#coaches
+    thead
+      tr
+        th 
+        th= sort_link(@q, :name, "Name")
+        th= sort_link(@q, :age, "Age")
+        th= sort_link(@q, :country_name, "Country")
+        th= "Team"
+        
+    tbody 
+      - @coaches.each do |coach|
+        tr
+          td= image_tag coach.avatar.url(:small), class: "img-thumbnail" if coach.avatar.present?
+          td= link_to coach.name, coach
+          td= coach.age
+          td= image_tag coach.country.avatar.url(:small), class: "country-flag"
+          td= coach.team.name if coach.team.present?
+
+  .mt-3
+    = link_to "Go Home", root_path, class: "btn btn-primary"
+    = link_to "Go Back", coaches_path, class: "btn btn-primary"
+    = link_to "New Coach", new_coach_path, class: "btn btn-primary"

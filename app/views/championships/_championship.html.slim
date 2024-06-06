@@ -8,6 +8,12 @@
         p
           strong Country:
           = championship.country.name
+        p
+          strong Actual Champion:
+          - if championship.team_id.present?
+            = Team.find(championship.team_id).name
+          - else
+            | No champion selected yet.
       
    
     .mt-3

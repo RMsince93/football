@@ -1,0 +1,26 @@
+.container.mt-5
+  h1 National Teams
+
+  = search_form_for @q, url: national_teams_path, method: :get, local: true, class: "form-inline mb-3" do |form|
+    .form-group.mt-2
+      = form.text_field :name_cont, class: "form-control", placeholder: "Search by Name"
+    .form-group.mt-2
+      = form.text_field :country_name_cont, class: "form-control", placeholder: "Search by Country"
+    .mt-3
+      = form.submit "Search", class: "btn btn-primary"
+      = link_to "Back", root_path, class: "btn btn-primary"
+
+  table.table#national_teams
+    thead
+      tr
+        th 
+        th= sort_link(@q, :name, "Name")
+
+    tbody
+      - @national_teams.each do |national_team|
+        tr
+          td= image_tag national_team.avatar.url(:small), class: "country-flag" if national_team.avatar.present?
+          td= link_to national_team.name, national_team
+
+  = link_to "Create National Team", new_national_team_path, class: "btn btn-primary"
+  = link_to "Go to National Teams", national_teams_path, class: "btn btn-primary"

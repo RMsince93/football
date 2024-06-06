@@ -1,0 +1,6 @@
+= form_with(model: @championship, data: { controller: "championship" }) do |form|
+  = turbo_frame_tag "championship_fields_frame" do
+    - if @championship.country_id.present?
+      = render partial: "championship_fields", locals: { form: form }
+
+            

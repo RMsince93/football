@@ -10,15 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_11_14_083243) do
+ActiveRecord::Schema[7.0].define(version: 2024_01_27_151601) do
   create_table "championships", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "country_id", null: false
     t.integer "continent_id"
+    t.integer "team_id"
     t.index ["continent_id"], name: "index_championships_on_continent_id"
     t.index ["country_id"], name: "index_championships_on_country_id"
+    t.index ["team_id"], name: "index_championships_on_team_id"
   end
 
   create_table "championships_teams", force: :cascade do |t|
@@ -28,6 +30,18 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_14_083243) do
     t.datetime "updated_at", null: false
     t.index ["championship_id"], name: "index_championships_teams_on_championship_id"
     t.index ["team_id"], name: "index_championships_teams_on_team_id"
+  end
+
+  create_table "coaches", force: :cascade do |t|
+    t.string "name"
+    t.integer "age"
+    t.integer "country_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "avatar"
+    t.integer "team_id"
+    t.index ["country_id"], name: "index_coaches_on_country_id"
+    t.index ["team_id"], name: "index_coaches_on_team_id"
   end
 
   create_table "continents", force: :cascade do |t|
@@ -41,7 +55,28 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_14_083243) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "continent_id"
+    t.string "avatar"
     t.index ["continent_id"], name: "index_countries_on_continent_id"
+  end
+
+  create_table "national_teams", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "avatar"
+    t.integer "country_id", null: false
+    t.index ["country_id"], name: "index_national_teams_on_country_id"
+  end
+
+  create_table "player_season_teams", force: :cascade do |t|
+    t.integer "season_id"
+    t.integer "player_id"
+    t.integer "team_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["player_id"], name: "index_player_season_teams_on_player_id"
+    t.index ["season_id"], name: "index_player_season_teams_on_season_id"
+    t.index ["team_id"], name: "index_player_season_teams_on_team_id"
   end
 
   create_table "players", force: :cascade do |t|
@@ -64,12 +99,21 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_14_083243) do
     t.integer "position_id", null: false
     t.integer "country_id", null: false
     t.string "avatar"
+    t.integer "national_team_id"
+    t.boolean "called_to_national_team"
     t.index ["country_id"], name: "index_players_on_country_id"
+    t.index ["national_team_id"], name: "index_players_on_national_team_id"
     t.index ["position_id"], name: "index_players_on_position_id"
     t.index ["team_id"], name: "index_players_on_team_id"
   end
 
   create_table "positions", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "seasons", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -84,16 +128,27 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_14_083243) do
     t.datetime "updated_at", null: false
     t.integer "country_id", null: false
     t.string "avatar"
+    t.integer "season_id"
     t.index ["country_id"], name: "index_teams_on_country_id"
+    t.index ["season_id"], name: "index_teams_on_season_id"
   end
 
   add_foreign_key "championships", "continents"
   add_foreign_key "championships", "countries"
+  add_foreign_key "championships", "teams"
   add_foreign_key "championships_teams", "championships"
   add_foreign_key "championships_teams", "teams"
+  add_foreign_key "coaches", "countries"
+  add_foreign_key "coaches", "teams"
   add_foreign_key "countries", "continents"
+  add_foreign_key "national_teams", "countries"
+  add_foreign_key "player_season_teams", "players"
+  add_foreign_key "player_season_teams", "seasons"
+  add_foreign_key "player_season_teams", "teams"
   add_foreign_key "players", "countries"
+  add_foreign_key "players", "national_teams"
   add_foreign_key "players", "positions"
   add_foreign_key "players", "teams"
   add_foreign_key "teams", "countries"
+  add_foreign_key "teams", "seasons"
 end

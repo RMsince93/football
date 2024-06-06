@@ -2,37 +2,38 @@
   .card
     .card-body
       .row
-        .col-md-3.text-center
-          .player-info
-            .row
-              .col
-                .player-number.text-center
-                  = "##{player.shirt_number}"
-              .col
-                .player-name.text-center
-                  = player.name
-          .player-avatar
-            = image_tag player.avatar.url, class: "img-fluid" if player.avatar.present?
+        .col-md-3
+          .player-info.text-center.text-nowrap
+            .player-number
+              = "##{player.shirt_number}"
         
-        .col-md-6.align-items-center
+            .player-name
+              = player.name
+              
+          .player-avatar
+            = image_tag player.avatar.url, class: "img-players mx-auto my-2" 
+        
+        .col-md-6.my-auto
           .row
-            .col-md-4.d-flex.flex-column.align-items-center
+            .col-md-4
               .player-details
                 p
+                  i.fa-solid.fa-cake-candles
                   strong Age:
                   = player.age
                 p
+                  i.fa-solid.fa-futbol
                   strong Goals:
                   = player.goals
                 p
                   strong Assists:
                   = player.assists
             
-            .col-md-4.d-flex.flex-column.align-items-center
+            .col-md-4
               .player-details
-                p
+                p               
                   strong Country:
-                  = player.country.name
+                  = image_tag player.country.avatar.url, class: "country-flag"
                 p
                   strong Height:
                   = player.height
@@ -40,7 +41,7 @@
                   strong Weight:
                   = player.weight
             
-            .col-md-4.d-flex.flex-column.align-items-center
+            .col-md-4
               .player-details
                 p
                   strong Yellow Cards:
@@ -50,15 +51,17 @@
                   = player.red_cards
 
         .col-md-3.d-flex.flex-column.align-items-center
-          .team-info.text-center
-            .team-name
-              = player.team.name
-            .team-avatar
-              = image_tag player.team.avatar.url, class: "img-fluid" if player.team.avatar.present?
-          
+          .card
+            .team-info.card-body.text-center
+              .team-name
+                = player.team.name
+              .team-avatar
+                = image_tag player.team.avatar.url, class: "img-teams" 
+            
           .market-value.mt-auto.ml-auto
-            .bg-primary
-              = format_market_value(player.market_value)
+            .card
+              .bg-dark
+                = format_market_value(player.market_value)
 
 .mt-3
   .col-md-12

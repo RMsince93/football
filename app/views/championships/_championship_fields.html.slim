@@ -1,0 +1,6 @@
+.col-md-6
+  = form.label "Actual Champion", class: "form-label"
+  - if @teams.any?
+    = form.collection_select :team_id, @teams, :id, :name, { include_blank: "Select Team" }, class: "form-control"
+  - else 
+    p Não existem equipas associadas a este país

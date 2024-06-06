@@ -4,6 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby "3.0.0"
 gem "rails", "~> 7.0.8"
 gem 'bootstrap', '~> 5.2.3'
+gem "font-awesome-rails"
 gem "slim-rails"
 gem "fae-rails", git: "https://github.com/wearefine/fae.git", branch: "fae-3.0-rails-7-bump"
 gem 'ransack', :github => 'activerecord-hackery/ransack', :branch => 'main'

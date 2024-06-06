@@ -30,7 +30,9 @@
           td= image_tag player.avatar.url(:small), class: "img-thumbnail" if player.avatar.present?
           td= link_to player.name, player
           td= player.age
-          td= player.country.name
+          td
+            = image_tag player.country.avatar.url(:small), class: "country-flag" if player.country.avatar.present?
+            = player.country.name
           td= number_to_currency(player.market_value, unit: '€', precision: 0, format: "%n %u")
           td= player.position.name
 

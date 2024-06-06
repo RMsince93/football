@@ -1,0 +1,35 @@
+= form_with(model: @coach, data: { controller: "keeper" }) do |form|
+  - if @coach.errors.any?
+    .row.mb-2
+      .col-12
+        .alert.alert-danger
+          h2
+            = "#{pluralize(@coach.errors.count, 'error')} prohibited this coach from being saved:"
+          ul
+            - @coach.errors.each do |error|
+              li
+                = error.full_message
+
+  .row.g-3.mb-2
+    .col-md-6
+      = form.label :avatar, 'Coach Avatar', class: "form-label"
+      = form.file_field :avatar, class: "form-control"
+
+    .col-md-6
+      = form.label :name, class: "form-label"
+      = form.text_field :name, class: "form-control"
+
+    .col-md-6
+      = form.label :age, class: "form-label"
+      = form.select :age, 30..80, { include_blank: "Select Age" }, class: "form-control"
+
+    .col-md-6
+      = form.label :country_id, "Country", class: "form-label"
+      = form.collection_select :country_id, Country.all, :id, :name, { include_blank: "Select Country" }, class: "form-control"
+
+    .col-md-6
+      = form.label :team_id, "Team", class: "form-label"
+      = form.collection_select :team_id, Team.all, :id, :name, { include_blank: "Select Team" }, class: "form-control"
+  
+  .col-md-6
+    = form.submit "Submit", class: "btn btn-primary py-3 px-4"

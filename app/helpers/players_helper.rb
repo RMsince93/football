@@ -1,11 +1,11 @@
 module PlayersHelper
 
   def height_measures
-    (150..220).map { |h| ["#{format('%.2f', h / 100.0)} m", h] }
+    (150..220).map { |h| ["#{format('%.2f', h / 100.0)} m", h.to_f] }
   end
 
   def weight_measures
-    (50..110).map { |w| ["#{w.round} kg", w] }
+    (50..110).map { |w| ["#{w.round} kg", w.to_f] }
   end
   
   def format_market_value(value)
@@ -17,6 +17,10 @@ module PlayersHelper
       value.to_s
     end
   end
-  
+
+  def national_team_options
+    [[ "No", false ], [ "Yes", true ]]
+  end
+
 end
 

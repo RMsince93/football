@@ -7,3 +7,56 @@ pt:
         precision: 2
         separator: !
         unit: €
+  activerecord:
+    models:
+      player: Jogador
+      coach: Treinador
+      team: Equipa
+      country: País
+    attributes:
+      player:
+        name: Nome
+        age: Idade
+        country: País
+        market_value: Valor de Mercado
+        position: Posição
+        country: País
+        height: Altura
+        weight: Peso
+        shirt_number: Número da Camisola
+        position: Posição
+        preferred_foot: Pé Preferencial
+        goals: Golos
+        assists: Assistências
+        yellow_cards: Cartões Amarelos
+        red_cards: Cartões Vermelhos
+        player_avatar: Foto do Jogador
+        goals_suffered: Golos Sofridos
+        clean_sheets: Jogos Sem Sofrer
+      coach:
+        name: Nome
+        age: Idade
+        country: País
+        team: Equipa
+      team:
+        name: Nome
+        stadium: Estádio
+        stadium_capacity: Capacidade do Estádio
+        country: País
+      country:
+        name: Nome
+  views:
+    players:
+      index:
+        search_placeholder: "Pesquisar por Nome"
+        name_column: "Nome"
+        age_column: "Idade"
+        country_column: "País"
+        market_value_column: "Valor de Mercado"
+        position_column: "Posição"
+    teams:
+      index:
+        name_column: "Nome"
+        stadium_column: "Estádio"
+        stadium_capacity_column: "Capacidade do Estádio"
+        country_column: "País"

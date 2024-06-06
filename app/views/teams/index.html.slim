@@ -2,17 +2,17 @@
   h1 Teams
 
   = search_form_for @q, url: teams_path, method: :get, local: true, class: "form-inline mb-3" do |form|
-    .form-group
+    .form-group.mt-2
       = form.text_field :name_cont, class: "form-control", placeholder: "Search by Name"
-    .form-group
+    .form-group.mt-2
       = form.text_field :stadium_cont, class: "form-control", placeholder: "Search by Stadium"
-    .form-group
+    .form-group.mt-2
       = form.text_field :country_name_cont, class: "form-control", placeholder: "Search by Country"
     .mt-3
       = form.submit "Search", class: "btn btn-primary"
       = link_to "Back", root_path, class: "btn btn-primary"
 
-  table.table.table-striped.table-dark#players
+  table.table#players
     thead
       tr
         th 
@@ -28,8 +28,10 @@
           td= link_to team.name, team
           td= team.stadium
           td= team.stadium_capacity
-          td= team.country.name
+          td
+            = image_tag team.country.avatar.url(:small), class: "country-flag" if team.country.avatar.present?
+            
 
-  = link_to "Create team", new_team_path, class: "btn btn-primary mt-3"
-  = link_to "Go to Championships", championships_path, class: "btn btn-primary mt-3"
-  = link_to "See all Players", players_path, class: "btn btn-primary mt-3"
+  = link_to "Create team", new_team_path, class: "btn btn-primary mt-3 mx-2" 
+  = link_to "Go to Championships", championships_path, class: "btn btn-primary mt-3 mx-2"
+  = link_to "See all Players", players_path, class: "btn btn-primary mt-3 mx-2"

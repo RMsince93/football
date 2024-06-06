@@ -1,0 +1,8 @@
+p style="color: green" = notice
+
+== render @national_team
+
+div
+  =< link_to "Back to national teams", national_teams_path
+
+  = button_to "Destroy this national team", @national_team, method: :delete

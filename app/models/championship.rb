@@ -4,9 +4,13 @@ class Championship < ApplicationRecord
     belongs_to :country, optional: true
     belongs_to :continent, optional: true
 
-    #validates :name, presence: true
-
-    scope :champ_search, ->(query) { where("name LIKE ? OR country LIKE ?", "%#{query}%", "%#{query}%") }
+    def self.ransackable_attributes(auth_object = nil)
+      ["name", "country"]
+    end
+    
+    def self.ransackable_associations(auth_object = nil)
+      ["country", "team", "continent"]
+    end
     
 end
   

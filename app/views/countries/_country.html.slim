@@ -1,4 +1,11 @@
-div id="#{dom_id country}"
-  p
-    strong Name:
-    =< country.name
+.container.mt-5
+  .card
+    .card-body
+      .row
+        .col-md-6
+          .country-info.text-center.text-nowrap
+            .country-name
+              = country.name
+              
+          .country-avatar
+            = image_tag country.avatar.url, class: "img-countries mx-auto my-2" if country.avatar.present?
